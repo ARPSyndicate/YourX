@@ -14,7 +14,7 @@ import re
 from urllib.parse import urlsplit
 import os
 
-print(BLUE + "YourX[1.2] by ARPSyndicate" + CLEAR)
+print(BLUE + "YourX[1.3] by ARPSyndicate" + CLEAR)
 print(YELLOW + "url clusterer" + CLEAR)
 
 if len(sys.argv)<2:
@@ -152,7 +152,7 @@ if inputs.output:
 
 if inputs.unique:
     os.system("mv {0} {0}.tmp".format(output))
-    os.system('for regex in `cat {0}.tmp | cut -d " " -f 1 | grep -v "UNCLUSTERED" | sort | uniq | sort -u`; do (cat {0}.tmp | grep -F "$regex" | head -n 1 | sort -u); done > {0}'.format(output))
+    os.system('for regex in `cat {0}.tmp | cut -d " " -f 1 | grep -v "UNCLUSTERED" | sort | uniq | sort -u`; do (grep -F "$regex" {0}.tmp | head -n 1 | sort -u); done > {0}'.format(output))
     os.system('cat {0}.tmp | grep "UNCLUSTERED" >> {0}'.format(output))
     os.system("rm {0}.tmp".format(output))
     
