@@ -14,7 +14,7 @@ import re
 from urllib.parse import urlsplit
 import os
 
-print(BLUE + "YourX[1.3] by ARPSyndicate" + CLEAR)
+print(BLUE + "YourX[1.4] by ARPSyndicate" + CLEAR)
 print(YELLOW + "url clusterer" + CLEAR)
 
 if len(sys.argv)<2:
@@ -27,6 +27,7 @@ else:
     parser.add_option('-o', '--output', action="store", dest="output", help="output file")
     parser.add_option('-t', '--threads', action="store", dest="threads", help="maximum threads [default=100]", default=100)
     parser.add_option('-u', '--unique', action="store_true", dest="unique", help="unique results only [default=False]", default=False)
+    parser.add_option('-c', '--characters', action="store", dest="characters", help="maximum characters [default=66]", default=66)
 
 inputs,args  = parser.parse_args()
 if not inputs.list:
@@ -35,13 +36,14 @@ if not inputs.list:
 ilist = str(inputs.list)
 output = str(inputs.output)
 threads = int(inputs.threads)
+characters = int(inputs.characters)
 unique = inputs.unique
 
 pattern_maker = PatternMaker()
 pattern_matcher = PatternMatcher()
-with open(ilist) as f:
+with open(ilistm, encoding="ISO-8859-1") as f:
 	urls=f.read().splitlines()
-urls = [item.strip("&/= ") for item in urls]
+urls = [item.strip("&/= ") for item in urls if len(item)<=characters]
 
 iunm = []
 
@@ -147,7 +149,7 @@ for data in iunm:
 
 if inputs.output:
 	result.sort()
-	with open(output, 'w') as f:
+	with open(output, 'w', encoding="ISO-8859-1") as f:
 		f.writelines("%s\n" % line for line in result)
 
 if inputs.unique:
