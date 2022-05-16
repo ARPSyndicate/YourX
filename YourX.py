@@ -41,7 +41,7 @@ unique = inputs.unique
 
 pattern_maker = PatternMaker()
 pattern_matcher = PatternMatcher()
-with open(ilistm, encoding="ISO-8859-1") as f:
+with open(ilist, encoding="ISO-8859-1") as f:
 	urls=f.read().splitlines()
 urls = [item.strip("&/= ") for item in urls if len(item)<=characters]
 
